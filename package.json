@@ -1,6 +1,6 @@
 {
   "name": "rt-tiptap-editor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Plug-and-play rich text editor based on Tiptap for React",
   "type": "module",
   "main": "dist/rt-tiptap-editor.js",
