@@ -29,7 +29,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
       name: "ReactTiptapEditor",
-      fileName: "react-tiptap-editor",
+      fileName: "rt-tiptap-editor",
       formats: ["es"],
     },
 
