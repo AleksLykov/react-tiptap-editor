@@ -1,0 +1,124 @@
+@use "../styles/_variables";
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+#root {
+  width: 1126px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+body {
+  --tt-toolbar-height: 44px;
+  --tt-theme-text: var(--tt-gray-light-900);
+
+  .dark & {
+    --tt-theme-text: var(--tt-gray-dark-900);
+  }
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--tt-theme-text);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  padding: 0;
+  overscroll-behavior-y: none;
+}
+
+html,
+body {
+  overscroll-behavior-x: none;
+}
+
+html,
+body,
+#root,
+#app {
+  height: 100%;
+  background-color: var(--tt-bg-color);
+}
+
+::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--tt-scrollbar-color) transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--tt-scrollbar-color);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tiptap.ProseMirror {
+  font-family: "DM Sans", sans-serif;
+}
+
+.rich-editor-wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+.rich-editor-content {
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  & p {
+    font-size: 16px;
+  }
+}
+
+.rich-editor-content .tiptap.ProseMirror.rich-editor {
+  flex: 1;
+  padding: 0rem 1rem;
+}
+
+// custom styles
+
+.rich-editor-wrapper {
+  border: 1px solid var(--tt-border-color) !important;
+  border-radius: 3px;
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 2px 2px 2px 0px inset,
+    rgba(0, 0, 0, 0.05) 0px 0px 1px 1px inset;
+  width: 100%;
+  height: unset;
+  &.view_mode {
+    box-shadow: none;
+    border: 1px dotted #a9a9a9;
+  }
+  .tiptap-toolbar {
+    box-shadow:
+      rgba(0, 0, 0, 0.1) 2px 2px 2px 0px inset,
+      rgba(0, 0, 0, 0.05) 0px 0px 1px 1px inset;
+  }
+}
+
+.ProseMirror p {
+  line-height: 1 !important;
+}
+.tiptap-dropdown-menu-content {
+  min-width: unset !important;
+}
+
+// project styles
+
+.rich-editor-content {
+  font-family: "Lato", sans-serif !important;
+
+  & p {
+    font-family: "Lato", sans-serif !important;
+  }
+}
