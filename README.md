@@ -1,73 +1,109 @@
-# React + TypeScript + Vite
+# rt-tiptap-editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**React Tiptap Editor** — an extensible and customizable editor based on [Tiptap](https://tiptap.dev/) for React.  
+Provides convenient functional enhancements, simplifies integration into projects, and is ready to use with TypeScript.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🔹 Features
 
-## React Compiler
+- Fully compatible with React 18+ and TypeScript
+- Supports **read-only mode** (`viewMode`)
+- Data export in **HTML** and **JSON** (`exportType`)
+- Adjustable editor height (`height`, `maxHeight`)
+- Custom toolbars and buttons for Tiptap extensions (text highlight, background color, etc.)
+- Automatic handling of content changes via `onChange`
+- Easy integration into existing React components
+- Supports CSS customization through `className`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ⚡ Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# Using npm
+npm install rt-tiptap-editor
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Using yarn
+yarn add rt-tiptap-editor
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Usage
+ 
+```tsx
+import React, { useState } from 'react';
+import { RichEditor, RichEditorProps } from 'rt-tiptap-editor';
+ 
+export function App() {
+  const [content, setContent] = useState<string>('');
+ 
+  return (
+    <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+      <RichEditor
+        data={content}
+        placeholder="Начните писать..."
+        exportType="html"
+        height="200px"
+        onChange={(data) => setContent(data as string)}
+      />
+      <div style={{ marginTop: '20px' }}>
+        <h4>Editor content:</h4>
+        <pre>{content}</pre>
+      </div>
+    </div>
+  );
+}
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+ 
+---
+ 
+## Props (`RichEditorProps`)
+ 
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `data` | `string` | — | Initial content of the editor |
+| `placeholder` | `string` | — | Placeholder text |
+| `viewMode` | `boolean` | `false` | Read-only mode |
+| `exportType` | `"html" \| "json"` | `"html"` | Output format |
+| `height` | `string` | `"150px"` | Editor height |
+| `maxHeight` | `string` | — | Maximum editor height |
+| `onChange` | `(data: string \| Record<string, unknown>) => void` | — | Callback on content change |
+| `className` | `string` | — | Custom CSS class |
+ 
+---
+ 
+## Supported Extensions
+ 
+- Text color and background color
+- Text highlighting
+- Custom blocks and toolbar buttons for Tiptap
+- Ability to add your own extensions
+- Full compatibility with `viewMode` (read-only mode)
+ 
+All extensions can be combined to create powerful and fully customized editors.
+ 
+---
+ 
+## Contributing
+ 
+Contributions are welcome! To add a new feature or fix a bug:
+ 
+1. Fork the repository
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/my-feature
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add new extension"
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature/my-feature
+   ```
+5. Open a Pull Request
+ 
+---
+ 
+## License
+ 
+MIT © [Aleks Lykov](https://github.com/AleksLykov)
