@@ -1,10 +1,10 @@
 {
-  "name": "react-tiptap-editor",
+  "name": "rt-tiptap-editor",
   "version": "1.0.0",
   "description": "Plug-and-play rich text editor based on Tiptap for React",
   "type": "module",
-  "main": "dist/react-tiptap-editor.js",
-  "module": "dist/react-tiptap-editor.js",
+  "main": "dist/rt-tiptap-editor.js",
+  "module": "dist/rt-tiptap-editor.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
@@ -59,7 +59,7 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/react-tiptap-editor.js",
+      "import": "./dist/rt-tiptap-editor.js",
       "types": "./dist/index.d.ts"
     }
   },
