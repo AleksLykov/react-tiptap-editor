@@ -87,7 +87,7 @@ import { ThemeToggle } from "@/components/tiptap-ui/theme-toggle/theme-toggle";
 import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils";
 
 // --- Styles ---
-import "./rich-editor.scss";
+import "./editor.scss";
 import debounce from "lodash.debounce";
 
 export type RichEditorProps = {
@@ -214,7 +214,7 @@ const MobileToolbarContent = ({
   </>
 );
 
-export function RichEditor({
+export function Editor({
   data,
   placeholder,
   viewMode,
@@ -336,7 +336,7 @@ export function RichEditor({
 
   return (
     <div
-      className={cn("rich-editor-wrapper", {
+      className={cn("rt-tiptap-editor-wrapper", {
         view_mode: viewMode,
         [className!]: !!className,
       })}
@@ -372,7 +372,7 @@ export function RichEditor({
         <EditorContent
           editor={editor}
           role="presentation"
-          className="rich-editor-content"
+          className="rt-tiptap-editor-content"
           style={{
             minHeight: height,
             maxHeight: maxHeight,

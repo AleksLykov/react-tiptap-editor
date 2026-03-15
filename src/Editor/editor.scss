@@ -61,48 +61,48 @@ body,
   font-family: "DM Sans", sans-serif;
 }
 
-.rich-editor-wrapper {
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-}
-
-.rich-editor-content {
-  width: 100%;
-  margin: 0 auto;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-
-  & p {
-    font-size: 16px;
-  }
-}
-
-.rich-editor-content .tiptap.ProseMirror.rich-editor {
-  flex: 1;
-  padding: 0rem 1rem;
-}
-
 // custom styles
 
-.rich-editor-wrapper {
-  border: 1px solid var(--tt-border-color) !important;
-  border-radius: 3px;
-  box-shadow:
-    rgba(0, 0, 0, 0.1) 2px 2px 2px 0px inset,
-    rgba(0, 0, 0, 0.05) 0px 0px 1px 1px inset;
-  width: 100%;
-  height: unset;
-  &.view_mode {
-    box-shadow: none;
-    border: 1px dotted #a9a9a9;
-  }
-  .tiptap-toolbar {
+.rt-tiptap-editor {
+  &-wrapper {
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    border: 1px solid var(--tt-border-color) !important;
+    border-radius: 3px;
     box-shadow:
       rgba(0, 0, 0, 0.1) 2px 2px 2px 0px inset,
       rgba(0, 0, 0, 0.05) 0px 0px 1px 1px inset;
+    width: 100%;
+    height: unset;
+    &.view_mode {
+      box-shadow: none;
+      border: 1px dotted #a9a9a9;
+    }
+    .tiptap-toolbar {
+      box-shadow:
+        rgba(0, 0, 0, 0.1) 2px 2px 2px 0px inset,
+        rgba(0, 0, 0, 0.05) 0px 0px 1px 1px inset;
+    }
+  }
+
+  &-content {
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0rem 1rem;
+
+    & p {
+      font-size: 16px;
+    }
+  }
+
+  &-dropdown-group {
+    max-height: 241px;
+    overflow-y: auto;
   }
 }
 
@@ -114,11 +114,3 @@ body,
 }
 
 // project styles
-
-.rich-editor-content {
-  font-family: "Lato", sans-serif !important;
-
-  & p {
-    font-family: "Lato", sans-serif !important;
-  }
-}

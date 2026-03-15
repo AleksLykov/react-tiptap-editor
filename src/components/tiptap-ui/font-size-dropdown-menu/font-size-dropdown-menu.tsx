@@ -81,7 +81,7 @@ export const FontSizeDropdownMenu = forwardRef<
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="start">
-          <DropdownMenuGroup>
+          <DropdownMenuGroup className="rt-tiptap-editor-dropdown-group">
             {sizes.map((size) => (
               <DropdownMenuItem key={`font-size-${size}`} asChild>
                 <Button

@@ -20,7 +20,7 @@ Provides convenient functional enhancements, simplifies integration into project
 
 ## ⚡ Installation
 
-```bash
+````bash
 # Using npm
 npm install rt-tiptap-editor
 
@@ -28,17 +28,17 @@ npm install rt-tiptap-editor
 yarn add rt-tiptap-editor
 
 ## Usage
- 
+
 ```tsx
 import React, { useState } from 'react';
-import { RichEditor, RichEditorProps } from 'rt-tiptap-editor';
- 
+import { Editor, EditorProps } from 'rt-tiptap-editor';
+
 export function App() {
   const [content, setContent] = useState<string>('');
- 
+
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-      <RichEditor
+      <Editor
         data={content}
         placeholder="Начните писать..."
         exportType="html"
@@ -52,41 +52,41 @@ export function App() {
     </div>
   );
 }
-```
- 
+````
+
 ---
- 
-## Props (`RichEditorProps`)
- 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `data` | `string` | — | Initial content of the editor |
-| `placeholder` | `string` | — | Placeholder text |
-| `viewMode` | `boolean` | `false` | Read-only mode |
-| `exportType` | `"html" \| "json"` | `"html"` | Output format |
-| `height` | `string` | `"150px"` | Editor height |
-| `maxHeight` | `string` | — | Maximum editor height |
-| `onChange` | `(data: string \| Record<string, unknown>) => void` | — | Callback on content change |
-| `className` | `string` | — | Custom CSS class |
- 
+
+## Props (`EditorProps`)
+
+| Prop          | Type                                                | Default   | Description                   |
+| ------------- | --------------------------------------------------- | --------- | ----------------------------- |
+| `data`        | `string`                                            | —         | Initial content of the editor |
+| `placeholder` | `string`                                            | —         | Placeholder text              |
+| `viewMode`    | `boolean`                                           | `false`   | Read-only mode                |
+| `exportType`  | `"html" \| "json"`                                  | `"html"`  | Output format                 |
+| `height`      | `string`                                            | `"150px"` | Editor height                 |
+| `maxHeight`   | `string`                                            | —         | Maximum editor height         |
+| `onChange`    | `(data: string \| Record<string, unknown>) => void` | —         | Callback on content change    |
+| `className`   | `string`                                            | —         | Custom CSS class              |
+
 ---
- 
+
 ## Supported Extensions
- 
+
 - Text color and background color
 - Text highlighting
 - Custom blocks and toolbar buttons for Tiptap
 - Ability to add your own extensions
 - Full compatibility with `viewMode` (read-only mode)
- 
+
 All extensions can be combined to create powerful and fully customized editors.
- 
+
 ---
- 
+
 ## Contributing
- 
+
 Contributions are welcome! To add a new feature or fix a bug:
- 
+
 1. Fork the repository
 2. Create a new branch:
    ```bash
@@ -101,9 +101,9 @@ Contributions are welcome! To add a new feature or fix a bug:
    git push origin feature/my-feature
    ```
 5. Open a Pull Request
- 
+
 ---
- 
+
 ## License
- 
+
 MIT © [Aleks Lykov](https://github.com/AleksLykov)
