@@ -1,42 +1,27 @@
 @use "./styles/_variables";
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
-#root {
-  width: 950px;
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-body {
-  --tt-toolbar-height: 44px;
-  --tt-theme-text: var(--tt-gray-light-900);
-
-  .dark & {
-    --tt-theme-text: var(--tt-gray-dark-900);
-  }
-}
-
-body {
-  font-family: "Inter", sans-serif;
-  color: var(--tt-theme-text);
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  padding: 0;
-  overscroll-behavior-y: none;
-}
-
-html,
-body {
-  overscroll-behavior-x: none;
-}
-
+// Theme toggle
 html,
 body,
 #root,
 #app {
-  height: 100%;
   background-color: var(--tt-bg-color);
+}
+
+body {
+  color: var(--tt-theme-text);
+}
+
+body {
+  --tt-theme-text: var(--tt-gray-light-900);
+  .dark & {
+    --tt-theme-text: var(--tt-gray-dark-900);
+  }
+}
+// end of theme toggle
+
+body {
+  font-optical-sizing: auto;
 }
 
 ::-webkit-scrollbar {
@@ -57,16 +42,10 @@ body,
   background: transparent;
 }
 
-.tiptap.ProseMirror {
-  font-family: "DM Sans", sans-serif;
-}
-
 // custom styles
 
 .rt-tiptap-editor {
   &-wrapper {
-    width: 100vw;
-    height: 100vh;
     overflow: auto;
     border: 1px solid var(--tt-border-color) !important;
     border-radius: 3px;
@@ -74,7 +53,6 @@ body,
       rgba(0, 0, 0, 0.1) 2px 2px 2px 0px inset,
       rgba(0, 0, 0, 0.05) 0px 0px 1px 1px inset;
     width: 100%;
-    height: unset;
     &.view_mode {
       box-shadow: none;
       border: 1px dotted #a9a9a9;
