@@ -31,14 +31,14 @@ yarn add rt-tiptap-editor
 
 ```tsx
 import React, { useState } from 'react';
-import { Editor, EditorProps } from 'rt-tiptap-editor';
+import { RichEditor, RichEditorProps } from 'rt-tiptap-editor';
 
 export function App() {
   const [content, setContent] = useState<string>('');
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-      <Editor
+    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <RichEditor
         data={content}
         placeholder="Начните писать..."
         exportType="html"
@@ -56,7 +56,7 @@ export function App() {
 
 ---
 
-## Props (`EditorProps`)
+## Props (`RichEditorProps`)
 
 | Prop          | Type                                                | Default   | Description                   |
 | ------------- | --------------------------------------------------- | --------- | ----------------------------- |

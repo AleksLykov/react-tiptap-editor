@@ -1,4 +1,4 @@
-import { Editor } from "./editor";
+import { RichEditor } from "./rich-editor";
 
 import "./app.scss";
 
@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <Editor
+      <RichEditor
         data={content}
         viewMode={false}
         exportType="json"

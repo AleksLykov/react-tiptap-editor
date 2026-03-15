@@ -1,3 +1,7 @@
-import "./editor.scss";
+import "./rich-editor.scss";
 
-export { Editor, type EditorProps } from "./editor";
+export {
+  RichEditor,
+  RichEditor as RTE,
+  type RichEditorProps,
+} from "./rich-editor";

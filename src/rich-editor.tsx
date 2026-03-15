@@ -87,10 +87,10 @@ import { ThemeToggle } from "@/components/tiptap-ui/theme-toggle/theme-toggle";
 import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils";
 
 // --- Styles ---
-import "./editor.scss";
+import "./rich-editor.scss";
 import debounce from "lodash.debounce";
 
-export type EditorProps = {
+export type RichEditorProps = {
   data?: string;
   placeholder?: string;
   viewMode?: boolean;
@@ -214,7 +214,7 @@ const MobileToolbarContent = ({
   </>
 );
 
-export function Editor({
+export function RichEditor({
   data,
   placeholder,
   viewMode,
@@ -223,7 +223,7 @@ export function Editor({
   maxHeight,
   onChange,
   className,
-}: EditorProps) {
+}: RichEditorProps) {
   const isMobile = useIsBreakpoint();
   const { height: windowHeight } = useWindowSize();
   const [mobileView, setMobileView] = useState<"main" | "highlighter" | "link">(

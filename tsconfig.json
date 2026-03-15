@@ -17,6 +17,6 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/index.ts", "src/editor.tsx", "src/types/**/*.d.ts"],
+  "include": ["src/index.ts", "src/rich-editor.tsx", "src/types/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
