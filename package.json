@@ -1,7 +1,7 @@
 {
   "name": "rt-tiptap-editor",
   "version": "1.0.5",
-  "description": "Plug-and-play rich text editor based on Tiptap for React",
+  "description": "Plug-and-play text editor based on Tiptap for React",
   "type": "module",
   "main": "dist/rt-tiptap-editor.js",
   "module": "dist/rt-tiptap-editor.js",
@@ -67,7 +67,7 @@
     "react",
     "tiptap",
     "editor",
-    "rich-text"
+    "react-text"
   ],
   "author": "Aleks Lykov",
   "license": "MIT",

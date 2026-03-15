@@ -5,7 +5,7 @@ import {
   EditorContent,
   EditorContext,
   useEditor,
-  type Editor,
+  type Editor as EditorType,
 } from "@tiptap/react";
 import cn from "classnames";
 
@@ -90,7 +90,7 @@ import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils";
 import "./editor.scss";
 import debounce from "lodash.debounce";
 
-export type RichEditorProps = {
+export type EditorProps = {
   data?: string;
   placeholder?: string;
   viewMode?: boolean;
@@ -107,7 +107,7 @@ const MainToolbarContent = ({
   onLinkClick,
   isMobile,
 }: {
-  editor: Editor;
+  editor: EditorType;
   onHighlighterClick: () => void;
   onLinkClick: () => void;
   isMobile: boolean;
@@ -223,7 +223,7 @@ export function Editor({
   maxHeight,
   onChange,
   className,
-}: RichEditorProps) {
+}: EditorProps) {
   const isMobile = useIsBreakpoint();
   const { height: windowHeight } = useWindowSize();
   const [mobileView, setMobileView] = useState<"main" | "highlighter" | "link">(
@@ -241,7 +241,7 @@ export function Editor({
         autocorrect: "off",
         autocapitalize: "off",
         "aria-label": "Main content area, start typing to enter text.",
-        class: "rich-editor",
+        class: "rt-tiptap-editor",
       },
     },
     extensions: [
@@ -317,7 +317,7 @@ export function Editor({
   }, [data]);
 
   useEffect(() => {
-    changeRef.current = debounce((editor: Editor) => {
+    changeRef.current = debounce((editor: EditorType) => {
       const value = exportType === "json" ? editor.getJSON() : editor.getHTML();
       const isSame =
         exportType === "json"
