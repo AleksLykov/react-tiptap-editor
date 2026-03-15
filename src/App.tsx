@@ -13,6 +13,7 @@ function App() {
         data={content}
         viewMode={false}
         exportType="json"
+        height={[50]}
         placeholder={"Start writing..."}
         onChange={onChange}
       />

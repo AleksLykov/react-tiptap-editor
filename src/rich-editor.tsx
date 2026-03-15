@@ -95,8 +95,7 @@ export type RichEditorProps = {
   placeholder?: string;
   viewMode?: boolean;
   exportType?: "html" | "json";
-  height?: string;
-  maxHeight?: string;
+  height?: [number] | [number, number];
   onChange: (data: string | Record<string, unknown>) => void;
   className?: string;
 };
@@ -219,10 +218,10 @@ export function RichEditor({
   placeholder,
   viewMode,
   exportType = "html",
-  height = "150px",
-  maxHeight,
+  height,
   onChange,
   className,
+  ...props
 }: RichEditorProps) {
   const isMobile = useIsBreakpoint();
   const { height: windowHeight } = useWindowSize();
@@ -374,8 +373,8 @@ export function RichEditor({
           role="presentation"
           className="rt-tiptap-editor-content"
           style={{
-            minHeight: height,
-            maxHeight: maxHeight,
+            minHeight: `${height?.[0] ?? 150}px`,
+            maxHeight: height?.[1] ? `${height[1]}px` : undefined,
             overflowY: viewMode ? "visible" : "auto",
           }}
         />
