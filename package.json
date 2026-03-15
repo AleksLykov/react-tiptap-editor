@@ -64,6 +64,8 @@
     }
   },
   "keywords": [
+    "rt",
+    "rt-tiptap-editor",
     "react",
     "tiptap",
     "editor",
