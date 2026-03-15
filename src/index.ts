@@ -1,3 +1,3 @@
-import "./Editor/editor.scss";
+import "./editor.scss";
 
-export { Editor, type EditorProps } from "./Editor/editor";
+export { Editor, type EditorProps } from "./editor";
