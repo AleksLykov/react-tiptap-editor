@@ -10,7 +10,7 @@ Provides convenient functional enhancements, simplifies integration into project
 - Fully compatible with React 18+ and TypeScript
 - Supports **read-only mode** (`viewMode`)
 - Data export in **HTML** and **JSON** (`exportType`)
-- Adjustable editor height (`height`, `maxHeight`)
+- Adjustable editor height (`height`)
 - Custom toolbars and buttons for Tiptap extensions (text highlight, background color, etc.)
 - Automatic handling of content changes via `onChange`
 - Easy integration into existing React components
@@ -42,7 +42,7 @@ export function App() {
         data={content}
         placeholder="Начните писать..."
         exportType="html"
-        height="200px"
+        height={[200, 400]}
         onChange={(data) => setContent(data as string)}
       />
       <div style={{ marginTop: '20px' }}>
@@ -58,16 +58,15 @@ export function App() {
 
 ## Props (`RichEditorProps`)
 
-| Prop          | Type                                                | Default   | Description                   |
-| ------------- | --------------------------------------------------- | --------- | ----------------------------- |
-| `data`        | `string`                                            | —         | Initial content of the editor |
-| `placeholder` | `string`                                            | —         | Placeholder text              |
-| `viewMode`    | `boolean`                                           | `false`   | Read-only mode                |
-| `exportType`  | `"html" \| "json"`                                  | `"html"`  | Output format                 |
-| `height`      | `string`                                            | `"150px"` | Editor height                 |
-| `maxHeight`   | `string`                                            | —         | Maximum editor height         |
-| `onChange`    | `(data: string \| Record<string, unknown>) => void` | —         | Callback on content change    |
-| `className`   | `string`                                            | —         | Custom CSS class              |
+| Prop          | Type                                                | Default  | Description                                   |
+| ------------- | --------------------------------------------------- | -------- | --------------------------------------------- |
+| `data`        | `string`                                            | —        | Initial content of the editor                 |
+| `placeholder` | `string`                                            | —        | Placeholder text                              |
+| `viewMode`    | `boolean`                                           | `false`  | Read-only mode                                |
+| `exportType`  | `"html" \| "json"`                                  | `"html"` | Output format                                 |
+| `height`      | `[number] \| [number, number]`                      | `[150]`  | Fixed editor height and maximum editor height |
+| `onChange`    | `(data: string \| Record<string, unknown>) => void` | —        | Callback on content change                    |
+| `className`   | `string`                                            | —        | Custom CSS class                              |
 
 ---
 
