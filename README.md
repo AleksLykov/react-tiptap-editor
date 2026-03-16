@@ -30,9 +30,9 @@ yarn add rt-tiptap-editor
 
 ## Usage
 
-```tsx
 Basic (uncontrolled)
 
+```tsx
 import { RichEditor } from "rt-tiptap-editor";
 
 export function App() {
@@ -44,9 +44,11 @@ export function App() {
     />
   );
 }
+```
 
 Controlled
 
+```tsx
 import React, { useState } from "react";
 import { RichEditor, RichEditorProps } from "rt-tiptap-editor";
 
@@ -69,9 +71,11 @@ export function App() {
     </div>
   );
 }
+```
 
 Read-only / View modes
 
+```tsx
 <RichEditor value={content} mode="readonly" />
 <RichEditor value={content} mode="view" />
 ```
@@ -80,14 +84,21 @@ Read-only / View modes
 
 ## 🎛 Toolbar Customization
 
-```tsx
 Disable toolbar
+
+```tsx
 <RichEditor toolbar={false} />
+```
 
 Provide custom toolbar component
+
+```tsx
 <RichEditor toolbar={<MyToolbar />} />
+```
 
 Render toolbar via function
+
+```tsx
 <RichEditor
   toolbar={(editor) => (
     <button onClick={() => editor.chain().focus().toggleBold().run()}>
