@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, ReactNode } from "react";
 import {
   EditorContent,
   EditorContext,
+  JSONContent,
   useEditor,
   type Editor as EditorType,
 } from "@tiptap/react";
@@ -91,12 +92,15 @@ import "./rich-editor.scss";
 import debounce from "lodash.debounce";
 
 export type RichEditorProps = {
+  value?: string | JSONContent;
+  defaultValue?: string | JSONContent;
+  onChange?: (value: string | JSONContent) => void;
   data?: string;
   placeholder?: string;
-  viewMode?: boolean;
+  mode?: "edit" | "readonly" | "view";
   exportType?: "html" | "json";
   height?: [number] | [number, number];
-  onChange: (data: string | Record<string, unknown>) => void;
+  toolbar?: ReactNode | ((editor: EditorType) => ReactNode) | false;
   className?: string;
 };
 
@@ -214,14 +218,15 @@ const MobileToolbarContent = ({
 );
 
 export function RichEditor({
-  data,
+  value,
+  defaultValue,
   placeholder,
-  viewMode,
+  mode = "edit",
   exportType = "html",
   height,
+  toolbar,
   onChange,
   className,
-  ...props
 }: RichEditorProps) {
   const isMobile = useIsBreakpoint();
   const { height: windowHeight } = useWindowSize();
@@ -229,8 +234,14 @@ export function RichEditor({
     "main",
   );
   const toolbarRef = useRef<HTMLDivElement>(null);
-  const lastValueRef = useRef(data);
+  const lastValueRef = useRef(value);
   const changeRef = useRef<ReturnType<typeof debounce> | null>(null);
+
+  const isControlled = value !== undefined;
+  const isEdit = mode === "edit";
+  const isReadonly = mode === "readonly";
+  const isView = mode === "view";
+  const showToolbar = isEdit || isReadonly;
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -268,7 +279,7 @@ export function RichEditor({
       Placeholder.configure({
         placeholder: ({ editor }) =>
           editor.isEmpty ? placeholder || "Start writing..." : "",
-        showOnlyWhenEditable: false,
+        showOnlyWhenEditable: isReadonly,
       }),
       ImageUploadNode.configure({
         accept: "image/*",
@@ -278,12 +289,12 @@ export function RichEditor({
         onError: (error) => console.error("Upload failed:", error),
       }),
     ],
-    content: data || "",
+    content: isControlled ? value : (defaultValue ?? ""),
     onUpdate({ editor, transaction }) {
-      if (!transaction.docChanged || viewMode) return;
+      if (!transaction.docChanged || !isEdit || !onChange) return;
       changeRef.current?.(editor);
     },
-    editable: !viewMode,
+    editable: isEdit,
   });
 
   const rect = useCursorVisibility({
@@ -292,6 +303,31 @@ export function RichEditor({
     overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
   });
 
+  const renderToolbar = () => {
+    if (toolbar === false || !showToolbar) return null;
+    if (!editor) return null;
+    if (typeof toolbar === "function") return toolbar(editor);
+    if (toolbar) return toolbar;
+
+    return mobileView === "main" ? (
+      <MainToolbarContent
+        editor={editor}
+        onHighlighterClick={() => setMobileView("highlighter")}
+        onLinkClick={() => setMobileView("link")}
+        isMobile={isMobile}
+      />
+    ) : (
+      <MobileToolbarContent
+        type={mobileView === "highlighter" ? "highlighter" : "link"}
+        onBack={() => setMobileView("main")}
+      />
+    );
+  };
+  const toolbarStyle = isMobile
+    ? { bottom: `calc(100% - ${windowHeight - rect.y}px)` }
+    : undefined;
+  const toolbarContent = renderToolbar();
+
   useEffect(() => {
     if (!isMobile && mobileView !== "main") {
       setMobileView("main");
@@ -299,21 +335,25 @@ export function RichEditor({
   }, [isMobile, mobileView]);
 
   useEffect(() => {
-    if (!editor) return;
-    const current = editor.getHTML();
-    if (data !== current) {
-      editor.commands.setContent(data || "");
-    }
-  }, [data, editor]);
+    if (!editor || !isControlled) return;
+
+    const current = exportType === "json" ? editor.getJSON() : editor.getHTML();
+    const isSame =
+      exportType === "json"
+        ? JSON.stringify(current) === JSON.stringify(value)
+        : current === value;
+
+    if (!isSame) editor.commands.setContent(value ?? "");
+  }, [value, editor, isControlled]);
 
   useEffect(() => {
     if (!editor) return;
-    editor.setEditable(!viewMode);
-  }, [editor, viewMode]);
+    editor.setEditable(isEdit);
+  }, [editor, isEdit]);
 
   useEffect(() => {
-    lastValueRef.current = data;
-  }, [data]);
+    lastValueRef.current = value;
+  }, [value]);
 
   useEffect(() => {
     changeRef.current = debounce((editor: EditorType) => {
@@ -323,7 +363,7 @@ export function RichEditor({
           ? JSON.stringify(value) === JSON.stringify(lastValueRef.current)
           : value === lastValueRef.current;
 
-      if (!isSame) onChange(value);
+      if (!isSame) onChange?.(value);
     }, 1000);
 
     return () => {
@@ -336,35 +376,15 @@ export function RichEditor({
   return (
     <div
       className={cn("rt-tiptap-editor-wrapper", {
-        view_mode: viewMode,
+        view_mode: isView,
+        readonly_mode: mode === "readonly",
         [className!]: !!className,
       })}
     >
       <EditorContext.Provider value={{ editor }}>
-        {!viewMode && (
-          <Toolbar
-            ref={toolbarRef}
-            style={{
-              ...(isMobile
-                ? {
-                    bottom: `calc(100% - ${windowHeight - rect.y}px)`,
-                  }
-                : {}),
-            }}
-          >
-            {mobileView === "main" ? (
-              <MainToolbarContent
-                editor={editor}
-                onHighlighterClick={() => setMobileView("highlighter")}
-                onLinkClick={() => setMobileView("link")}
-                isMobile={isMobile}
-              />
-            ) : (
-              <MobileToolbarContent
-                type={mobileView === "highlighter" ? "highlighter" : "link"}
-                onBack={() => setMobileView("main")}
-              />
-            )}
+        {toolbarContent && (
+          <Toolbar ref={toolbarRef} style={toolbarStyle}>
+            {toolbarContent}
           </Toolbar>
         )}
 
@@ -375,7 +395,7 @@ export function RichEditor({
           style={{
             minHeight: `${height?.[0] ?? 150}px`,
             maxHeight: height?.[1] ? `${height[1]}px` : undefined,
-            overflowY: viewMode ? "visible" : "auto",
+            overflowY: isView ? "visible" : "auto",
           }}
         />
       </EditorContext.Provider>

@@ -1,72 +1,132 @@
 # rt-tiptap-editor
 
-**React Tiptap Editor** — an extensible and customizable editor based on [Tiptap](https://tiptap.dev/) for React.  
-Provides convenient functional enhancements, simplifies integration into projects, and is ready to use with TypeScript.
+**rt-tiptap-editor** — extensible rich text editor for React based on Tiptap.
+Designed for flexibility, customization, and seamless integration into modern React + TypeScript applications.
 
 ---
 
 ## 🔹 Features
 
-- Fully compatible with React 18+ and TypeScript
-- Supports **read-only mode** (`viewMode`)
-- Data export in **HTML** and **JSON** (`exportType`)
-- Adjustable editor height (`height`)
-- Custom toolbars and buttons for Tiptap extensions (text highlight, background color, etc.)
-- Automatic handling of content changes via `onChange`
-- Easy integration into existing React components
-- Supports CSS customization through `className`
+- React 18+ compatible
+- Full TypeScript support
+- Controlled and uncontrolled modes
+- Three editor modes: **edit / readonly / view**
+- Export content as **HTML** or **JSON**
+- Customizable toolbar (replace, extend, or disable)
+- Adjustable editor height
+- Placeholder support
+- Mobile-friendly behavior
+- Easy styling via `className`
 
 ---
 
 ## ⚡ Installation
 
-````bash
-# Using npm
+```bash
 npm install rt-tiptap-editor
-
-# Using yarn
+# or
 yarn add rt-tiptap-editor
+```
 
 ## Usage
 
 ```tsx
-import React, { useState } from 'react';
-import { RichEditor, RichEditorProps } from 'rt-tiptap-editor';
+Basic (uncontrolled)
+
+import { RichEditor } from "rt-tiptap-editor";
 
 export function App() {
-  const [content, setContent] = useState<string>('');
+  return (
+    <RichEditor
+      defaultValue="<p>Hello world</p>"
+      placeholder="Start writing..."
+      height={[200, 400]}
+    />
+  );
+}
+
+Controlled
+
+import React, { useState } from "react";
+import { RichEditor, RichEditorProps } from "rt-tiptap-editor";
+
+export function App() {
+  const [content, setContent] = useState<string>("");
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
       <RichEditor
-        data={content}
-        placeholder="Начните писать..."
+        value={content}
+        onChange={setContent}
+        placeholder="Start writing..."
         exportType="html"
         height={[200, 400]}
-        onChange={(data) => setContent(data as string)}
       />
-      <div style={{ marginTop: '20px' }}>
+      <div style={{ marginTop: "20px" }}>
         <h4>Editor content:</h4>
         <pre>{content}</pre>
       </div>
     </div>
   );
 }
-````
+
+Read-only / View modes
+
+<RichEditor value={content} mode="readonly" />
+<RichEditor value={content} mode="view" />
+```
+
+---
+
+## 🎛 Toolbar Customization
+
+```tsx
+Disable toolbar
+<RichEditor toolbar={false} />
+
+Provide custom toolbar component
+<RichEditor toolbar={<MyToolbar />} />
+
+Render toolbar via function
+<RichEditor
+  toolbar={(editor) => (
+    <button onClick={() => editor.chain().focus().toggleBold().run()}>
+      Bold
+    </button>
+  )}
+/>
+```
 
 ---
 
 ## Props (`RichEditorProps`)
 
-| Prop          | Type                                                | Default  | Description                                   |
-| ------------- | --------------------------------------------------- | -------- | --------------------------------------------- |
-| `data`        | `string`                                            | —        | Initial content of the editor                 |
-| `placeholder` | `string`                                            | —        | Placeholder text                              |
-| `viewMode`    | `boolean`                                           | `false`  | Read-only mode                                |
-| `exportType`  | `"html" \| "json"`                                  | `"html"` | Output format                                 |
-| `height`      | `[number] \| [number, number]`                      | `[150]`  | Fixed editor height and maximum editor height |
-| `onChange`    | `(data: string \| Record<string, unknown>) => void` | —        | Callback on content change                    |
-| `className`   | `string`                                            | —        | Custom CSS class                              |
+| Prop           | Type                                                  | Default           | Description                                   |
+| -------------- | ----------------------------------------------------- | ----------------- | --------------------------------------------- |
+| `value`        | `string \| JSONContent`                               | —                 | Controlled content value                      |
+| `defaultValue` | `string \| JSONContent`                               | —                 | Initial content (uncontrolled mode)           |
+| `onChange`     | `(value: string \| JSONContent) => void`              | —                 | Callback on content change                    |
+| `placeholder`  | `string`                                              | —                 | Placeholder text                              |
+| `mode`         | `"edit" \| "readonly" \| "view"`                      | `"edit"`          | Editor interaction mode                       |
+| `exportType`   | `"html" \| "json"`                                    | `"html"`          | Format returned in onChange                   |
+| `height`       | `[number] \| [number, number]`                        | `[150]`           | Fixed editor height and maximum editor height |
+| `toolbar`      | `ReactNode \| (editor: Editor) => ReactNode \| false` | `Default toolbar` | Fixed editor height and maximum editor height |
+| `className`    | `string`                                              | —                 | Custom CSS class                              |
+
+---
+
+## 🧠 Controlled vs Uncontrolled
+
+Controlled
+
+- Use value
+- Must handle onChange
+- External state is the single source of truth
+
+Uncontrolled
+
+- Use defaultValue
+- Editor manages its own internal state
 
 ---
 
@@ -79,6 +139,21 @@ export function App() {
 - Full compatibility with `viewMode` (read-only mode)
 
 All extensions can be combined to create powerful and fully customized editors.
+
+---
+
+## 🔌 Content Format
+
+```tsx
+exportType = "html"; // default
+exportType = "json";
+```
+
+---
+
+## 🛠 Extensibility
+
+Built on top of Tiptap, so you can extend functionality with custom extensions, nodes, and commands.
 
 ---
 

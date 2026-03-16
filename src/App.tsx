@@ -11,9 +11,9 @@ function App() {
     <>
       <RichEditor
         data={content}
-        viewMode={false}
+        // mode="view"
+        // mode="readonly"
         exportType="json"
-        height={[50]}
         placeholder={"Start writing..."}
         onChange={onChange}
       />
