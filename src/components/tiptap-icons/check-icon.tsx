@@ -1,6 +1,6 @@
-import { memo } from "react";
+import { memo } from "react"
 
-type SvgProps = React.ComponentPropsWithoutRef<"svg">;
+type SvgProps = React.ComponentPropsWithoutRef<"svg">
 
 export const CheckIcon = memo(({ className, ...props }: SvgProps) => {
   return (
@@ -14,11 +14,13 @@ export const CheckIcon = memo(({ className, ...props }: SvgProps) => {
       {...props}
     >
       <path
-        d="M9.75 18L3 11.25L4.0605 10.1895L9.75 15.8782L19.9395 5.6895L21 6.75L9.75 18Z"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M20.7071 5.29289C21.0976 5.68342 21.0976 6.31658 20.7071 6.70711L9.70711 17.7071C9.31658 18.0976 8.68342 18.0976 8.29289 17.7071L3.29289 12.7071C2.90237 12.3166 2.90237 11.6834 3.29289 11.2929C3.68342 10.9024 4.31658 10.9024 4.70711 11.2929L9 15.5858L19.2929 5.29289C19.6834 4.90237 20.3166 4.90237 20.7071 5.29289Z"
         fill="currentColor"
       />
     </svg>
-  );
-});
+  )
+})
 
-CheckIcon.displayName = "CheckIcon";
+CheckIcon.displayName = "CheckIcon"
